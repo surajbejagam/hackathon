@@ -7,7 +7,14 @@ import { Card } from './ui/Card';
 import { StatCard } from './ui/StatCard';
 import type { StatusSummaryFormData, StatusSummaryResponse } from '../types';
 
-const COUNTRIES = ['USA', 'Canada', 'United Kingdom', 'Germany', 'France', 'Japan', 'Australia'];
+const COUNTRIES = [ 'USA', 'AUS', 'AUT', 'BEL', 'BLR',
+  'BRA', 'CAN', 'CHE', 'COL', 'CUB', 'CZE',
+  'DEU', 'DNK', 'ESP', 'FIN', 'FRA', 'GBR',
+  'GRC', 'HKG', 'HRV', 'IND', 'IRL', 'ITA',
+  'JPN', 'KOR', 'LBN', 'LTU', 'MEX', 'MYS',
+  'NLD', 'NZL', 'PAN', 'PER', 'PHL', 'POL',
+  'PRT', 'RUS', 'SAU', 'SGP', 'SLV', 'SRB',
+  'SVN', 'SWE', 'TUN', 'TUR', 'AND'];
 
 const STATUS_COLORS: { [key: string]: string } = {
   'Terminated': '#6b7280',
@@ -215,24 +222,39 @@ export const StatusSummary: React.FC = () => {
             </div>
           </Card>
 
-          {/* Manufacturers Chart */}
-          <Card title="Events by Manufacturer">
-            <ResponsiveContainer width="100%" height={400}>
-              <BarChart data={result.manufacturers} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis 
-                  dataKey="name" 
-                  angle={-45}
-                  textAnchor="end"
-                  height={80}
-                  interval={0}
-                />
-                <YAxis />
-                <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="eventCount" fill="#2563eb" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </Card>
+          <Card title="Manufacturers">
+  <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+    {(
+      Array.isArray(result?.manufacturers)
+        ? result.manufacturers
+        : typeof result?.manufacturers === "string"
+        ? [result.manufacturers]
+        : typeof result?.manufacturers === "object" && result?.manufacturers !== null
+        ? Object.values(result.manufacturers) // dict like {"0":"Abbott","1":"GE"}
+        : []
+    ).map((m: any, i: number) => (
+      <li key={i} style={{ display: "flex", alignItems: "center", marginBottom: 8 }}>
+        <div
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: "50%",
+            background: "#1890ff",
+            color: "#fff",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginRight: 8,
+            fontWeight: 600,
+          }}
+        >
+          {String(m).charAt(0).toUpperCase()}
+        </div>
+        <span>{m}</span>
+      </li>
+    ))}
+  </ul>
+</Card>
         </>
       )}
     </div>

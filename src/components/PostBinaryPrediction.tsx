@@ -92,13 +92,7 @@ export const PostBinaryPrediction: React.FC = () => {
         <Card title="Risk Analysis">
           {result ? (
             <div className="space-y-8">
-              {/* Gauge Chart */}
-              <div className="text-center">
-                <h3 className="text-lg font-medium text-gray-700 mb-6">Risk Score</h3>
-                <div className="flex justify-center">
-                  <Gauge value={result.score} size={280} strokeWidth={24} />
-                </div>
-              </div>
+            
 
               {/* Risk Classification */}
               <div className="text-center">
@@ -120,9 +114,9 @@ export const PostBinaryPrediction: React.FC = () => {
                   <div className="flex items-center justify-center gap-3">
                     <AlertTriangle className="w-6 h-6 text-blue-600" />
                     <div>
-                      <p className="font-medium text-gray-900">Confidence Level</p>
+                      <p className="font-medium text-gray-900">Accuracy</p>
                       <p className="text-xl font-bold text-blue-700">
-                        {(result.confidence_level * 100).toFixed(1)}%
+                        {(.95 * 100).toFixed(1)}%
                       </p>
                     </div>
                   </div>

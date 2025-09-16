@@ -34,9 +34,9 @@ export interface StatusSummaryResponse {
 
 // Form Data Types
 export interface PreMulticlassFormData {
-  deviceId: string;
-  manufacturerId: string;
-  riskClass: 'I' | 'II' | 'III';
+  deviceName: string;
+  manufacturerName: string;
+  riskClass: 'I' | 'II' | 'III' | 'other';
   classification: string;
   implanted: boolean;
   quantityInCommerce: number;
